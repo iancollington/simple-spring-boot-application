@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-spring-boot-application
+  labels:
+    app: simple-spring-boot-application
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: simple-spring-boot-application
+  type: NodePort
