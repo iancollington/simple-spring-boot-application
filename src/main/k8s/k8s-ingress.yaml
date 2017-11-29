@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: simple-spring-boot-application
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: hello.iancollington.com
+    http:
+      paths:
+      - backend:
+          serviceName: simple-spring-boot-application
+          servicePort: 8080

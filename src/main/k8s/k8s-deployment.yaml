@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: simple-spring-boot-application
+  labels:
+    app: simple-spring-boot-application
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: simple-spring-boot-application
+    spec:
+      containers:
+      - name: simple-spring-boot-application
+        image: iancollington/simple-spring-boot-application
+        imagePullPolicy: Always
+        env:
+          - name: BUILD_DATE
+            value: BUILD_DATE_PLACEHOLDER
+        resources:
+          requests:
+            cpu: "0.25"
+            memory: 1024Mi
+          limits:
+            cpu: "1"
+            memory: 1536Mi
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 300
+          timeoutSeconds: 1
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
